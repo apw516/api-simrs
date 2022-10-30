@@ -15,7 +15,6 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'message' => 'unauthorized',
-
                 ],401);
         }
         $token = $user->createToken('token')->plainTextToken;
