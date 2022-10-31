@@ -156,7 +156,10 @@ class ErmController extends Controller
                     'tagihan_pribadi' =>  $request->tarif * $request->qty,
                     'tgl_layanan_detail_2' => $request->tgl_masuk,
                     'row_id_header' => $request->row_id_header
-                ];
+                ];                
+                $header = DB::connection('mysql2')->select('SELECT * from ts_layanan_header_order where id = ?', [$request->row_id_header]);
+                $grand_total_tarif = $header[0]->total_layanan + $request->tarif * $request->qty;
+                ts_layanan_header::where('id', $request->row_id_header)->update(['total_layanan' => $grand_total_tarif, 'tagihan_pribadi' => $grand_total_tarif]);
             } else {
                 $save_detail = [
                     'id_layanan_detail' => $id_detail,
@@ -174,8 +177,11 @@ class ErmController extends Controller
                     'tgl_layanan_detail_2' => $request->tgl_masuk,
                     'row_id_header' => $request->row_id_header
                 ];
+                $header = DB::connection('mysql2')->select('SELECT * from ts_layanan_header_order where id = ?', [$request->row_id_header]);
+                $grand_total_tarif = $header[0]->total_layanan + $request->tarif * $request->qty;
+                ts_layanan_header::where('id', $request->row_id_header)->update(['total_layanan' => $grand_total_tarif, 'tagihan_penjamin' => $grand_total_tarif]);
             }
-            $ts_layanan_header = ts_layanan_detail::create($save_detail);
+            $ts_layanan_header = ts_layanan_detail::create($save_detail);            
             return response()->json(
                 [
                     'message' => 'Sukses',
