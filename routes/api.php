@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\PendaftaranController;
 use App\Http\Controllers\API\BpjsController;
 use App\Http\Controllers\api\ErmController;
+use App\Http\Controllers\api\SatuSehatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,14 @@ Route::group(['middleware' => 'auth:sanctum'],function(){
     Route::post('/simpanlayanan_header',[ErmController::class,'simpanlayanan_header']);
     Route::post('/simpanlayanan_detail',[ErmController::class,'simpanlayanan_detail']);
     Route::post('/tampil_cppt',[ErmController::class,'tampil_cppt']);
+
+    //SATU INDONESIA SEHAT
+    Route::post('/authss',[SatuSehatController::class,'login']);
+    Route::post('/search_patient_nik',[SatuSehatController::class,'search_patient_nik']);
+    Route::post('/search_practitioner_nik',[SatuSehatController::class,'search_practitioner_nik']);
+    Route::post('/Organization_by_name',[SatuSehatController::class,'Organization_by_name']);
+    Route::post('/Location_by_name',[SatuSehatController::class,'Location_by_name']);
+    Route::post('/Encounter_rajal',[SatuSehatController::class,'Encounter_rajal']);
 
     //BPJS
     Route::post('/infopeserta_kartu',[BpjsController::class,'infopeserta_kartu']);
