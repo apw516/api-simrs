@@ -17,8 +17,9 @@ use App\Http\Controllers\SatuSehatController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/satusehat', [SatuSehatController::class, 'login'])
-        ->name('menusepvalidasi'); //sidebar
+Route::get('/satusehat', [SatuSehatController::class, 'login']);
+Route::get('/get_pasien_nik/{nik}', [SatuSehatController::class, 'search_patient_nik']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

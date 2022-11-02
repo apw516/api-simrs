@@ -13,4 +13,10 @@ class SatuSehatController extends Controller
         $data = $SS->get_token();
         return $data->access_token;
     }
+    public function search_patient_nik($nik)
+    {
+        $SS = new SatuSehatModel();
+        $data = $SS->patient_search_nik($nik);
+        return $data;
+    }
 }
